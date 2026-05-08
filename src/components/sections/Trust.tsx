@@ -15,7 +15,7 @@ const columns = [
       "Mirror your full production environment before launch. Test edge cases, compliance flags, and payment flows without touching live data.",
   },
   {
-    icon: "/images/icon-trust-compliance.svg",
+    icon: "/images/icon-160.svg",
     title: (
       <>
         ISO 27001 <span className="text-dark/30">·</span> GDPR{" "}
@@ -134,31 +134,41 @@ export default function Trust() {
                     <path d="M178.57 54.4864L97.8705 20.7207L16.9753 54.7252" stroke="#5533FF" strokeLinecap="round" strokeLinejoin="round"/>
                     <path
                       d="M97.92 0.5 L195.24 40.83 L195.24 147.71 L97.94 188.81 L0.5 147.80 L0.5 40.72 Z"
-                      stroke="#9C9C9C"
+                      stroke="#0c1628"
                       strokeWidth="0.5"
-                      strokeDasharray="1.8 1.8"
+                      strokeDasharray="4 8"
                       strokeLinecap="round"
                       strokeLinejoin="round"
                       className={styles.marchDash}
                     />
                   </svg>
                 ) : (
-                  <div
-                    className="transition-transform"
-                    style={{ transitionDuration: "250ms", transitionTimingFunction: EASING }}
-                    onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.transform = "translateY(-8px)"; }}
-                    onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.transform = "translateY(0)"; }}
+                  <svg
+                    className="icon-entrance"
+                    width="160" height="160"
+                    viewBox="0 0 195 195"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    style={{
+                      overflow: "visible",
+                      animation: inView ? `icon-rise 600ms ${EASING} ${i * STAGGER_MS}ms both` : "none",
+                      opacity: inView ? undefined : 0,
+                    }}
                   >
-                    <img
-                      src={col.icon}
-                      alt=""
-                      className="icon-entrance h-40 w-40 object-contain"
-                      style={{
-                        animation: inView ? `icon-rise 600ms ${EASING} ${i * STAGGER_MS}ms both` : "none",
-                        opacity: inView ? undefined : 0,
-                      }}
+                    <path d="M82.6405 178.771L45.7963 115L84.8393 115L97.5648 137.026L110.29 115L149.333 115L112.489 178.771L82.6405 178.771Z" fill="#F9F9F9"/>
+                    <path d="M191.624 41.8006L154.78 105.572L135.258 71.7835L147.984 49.7575L122.533 49.7574L103.011 15.9688L176.7 15.969L191.624 41.8006Z" fill="#F9F9F9"/>
+                    <path d="M18.4296 15.969L92.1182 15.9691L72.5966 49.7578L47.1455 49.7578L59.871 71.7838L40.3496 105.572L3.50537 41.8006L18.4296 15.969Z" fill="#F9F9F9"/>
+                    <path d="M82.6405 178.771L45.7963 115L84.8393 115L97.5648 137.026L110.29 115L149.333 115L112.489 178.771L82.6405 178.771Z" stroke="black" strokeLinejoin="round"/>
+                    <path d="M191.624 41.8006L154.78 105.572L135.258 71.7835L147.984 49.7575L122.533 49.7574L103.011 15.9688L176.7 15.969L191.624 41.8006Z" stroke="black" strokeLinejoin="round"/>
+                    <path d="M18.4296 15.969L92.1182 15.9691L72.5966 49.7578L47.1455 49.7578L59.871 71.7838L40.3496 105.572L3.50537 41.8006L18.4296 15.969Z" stroke="black" strokeLinejoin="round"/>
+                    <path
+                      d="M97.1755 39.3379L62.317 100.097L132.034 100.097L97.1755 39.3379Z"
+                      fill="white"
+                      stroke="#5533FF"
+                      strokeLinejoin="round"
+                      className={styles.trianglePulse}
                     />
-                  </div>
+                  </svg>
                 )}
               </div>
               {/* Text */}

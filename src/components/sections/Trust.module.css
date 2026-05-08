@@ -16,18 +16,35 @@
   transform-origin: 50% 50%;
 }
 
-.icon:hover .circleTop    { animation: rotateCW  14s linear infinite; }
-.icon:hover .circleRight  { animation: rotateCCW 12s linear infinite; }
-.icon:hover .circleBottom { animation: rotateCW  10s linear infinite; }
-.icon:hover .circleLeft   { animation: rotateCCW 16s linear infinite; }
+.icon .circleTop    { animation: rotateCW  28s linear infinite; }
+.icon .circleRight  { animation: rotateCCW 24s linear infinite; }
+.icon .circleBottom { animation: rotateCW  20s linear infinite; }
+.icon .circleLeft   { animation: rotateCCW 32s linear infinite; }
 
 @media (prefers-reduced-motion: reduce) {
-  .icon:hover .circleTop,
-  .icon:hover .circleRight,
-  .icon:hover .circleBottom,
-  .icon:hover .circleLeft {
+  .icon .circleTop,
+  .icon .circleRight,
+  .icon .circleBottom,
+  .icon .circleLeft {
     animation: none;
   }
+}
+
+/* Compliance icon — inner triangle pulse */
+
+@keyframes trianglePulse {
+  from { transform: scale(0.88); }
+  to   { transform: scale(1); }
+}
+
+.trianglePulse {
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+  animation: trianglePulse 3s ease-in-out infinite alternate;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .trianglePulse { animation: none !important; transform: none !important; }
 }
 
 /* Sandbox icon — marching dash outline */

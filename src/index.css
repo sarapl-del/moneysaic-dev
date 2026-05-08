@@ -120,11 +120,20 @@
   }
 }
 
+@keyframes branchPulse {
+  from { transform: scale(0.88); }
+  to   { transform: scale(1); }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .icon-entrance {
     animation: none !important;
     opacity: 1 !important;
     transform: none !important;
+  }
+  .branch-pulse-layer {
+    animation: none !important;
+    transform: scale(1) !important;
   }
 }
 
