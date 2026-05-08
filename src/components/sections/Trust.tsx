@@ -9,7 +9,7 @@ const columns = [
       "Clean REST endpoints across every module with webhook support for real-time event streaming. No custom SDKs. No surprises.",
   },
   {
-    icon: "/images/icon-trust-api.svg",
+    icon: "/images/icon-222.svg",
     title: "Full sandbox environment",
     description:
       "Mirror your full production environment before launch. Test edge cases, compliance flags, and payment flows without touching live data.",
@@ -101,6 +101,46 @@ export default function Trust() {
                       <path d="M183.472 126.281C199.163 110.59 199.163 85.1505 183.472 69.4598C167.781 53.7692 142.342 53.7692 126.651 69.4598C110.96 85.1505 110.96 110.59 126.651 126.281C142.342 141.971 167.781 141.971 183.472 126.281Z" fill="#F9F9F9" stroke="black" strokeLinejoin="round"/>
                       <path d="M183.472 126.281C199.163 110.591 199.163 85.1509 183.472 69.4602C167.781 53.7696 142.342 53.7696 126.651 69.4602L183.472 126.281Z" fill="white" stroke="black" strokeLinejoin="round"/>
                     </g>
+                  </svg>
+                ) : i === 1 ? (
+                  <svg
+                    className="icon-entrance"
+                    width="160" height="155"
+                    viewBox="0 0 196 190"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    style={{
+                      overflow: "visible",
+                      animation: inView ? `icon-rise 600ms ${EASING} ${i * STAGGER_MS}ms both` : "none",
+                      opacity: inView ? undefined : 0,
+                    }}
+                  >
+                    <path d="M97.8705 81.6747L178.766 115.679V115.52C178.766 115.573 178.766 115.626 178.766 115.679V134.586L97.8705 168.59L16.9753 134.586V115.679L97.8705 81.6747Z" fill="#F9F9F9"/>
+                    <path d="M178.766 115.679L97.8705 81.6747L16.9753 115.679M178.766 115.679L97.8705 149.684M178.766 115.679V115.52C178.766 115.573 178.766 115.626 178.766 115.679ZM178.766 115.679V134.586L97.8705 168.59M97.8705 149.684L16.9753 115.679M97.8705 149.684V168.59M16.9753 115.679V134.586L97.8705 168.59" stroke="black" strokeLinejoin="round"/>
+                    <path d="M16.9753 115.679V134.586L97.8705 168.59V149.684L16.9753 115.679Z" fill="white" stroke="black" strokeLinejoin="round"/>
+                    <path d="M178.766 115.679L97.8706 149.683V168.59L178.766 134.585V115.679C178.766 115.626 178.766 115.573 178.766 115.52V115.679Z" fill="white"/>
+                    <path d="M178.766 115.679L97.8706 149.683V168.59L178.766 134.585V115.679ZM178.766 115.679V115.52C178.766 115.573 178.766 115.626 178.766 115.679Z" stroke="black" strokeLinejoin="round"/>
+                    <path d="M178.766 115.679L97.8705 81.6748L16.9753 115.679L97.8705 149.684L178.766 115.679Z" fill="#F9F9F9" stroke="black" strokeLinejoin="round"/>
+                    <path d="M97.8705 51.1972L178.766 85.2015V85.0422C178.766 85.0952 178.766 85.1483 178.766 85.2015V104.108L97.8705 138.112L16.9753 104.108V85.2017L97.8705 51.1972Z" fill="#F9F9F9"/>
+                    <path d="M178.766 85.2015L97.8705 51.1972L16.9753 85.2017M178.766 85.2015L97.8705 119.206M178.766 85.2015V85.0422C178.766 85.0952 178.766 85.1483 178.766 85.2015ZM178.766 85.2015V104.108L97.8705 138.112M97.8705 119.206L16.9753 85.2017M97.8705 119.206V138.112M16.9753 85.2017V104.108L97.8705 138.112" stroke="black" strokeLinejoin="round"/>
+                    <path d="M16.9753 85.2021V104.109L97.8705 138.113V119.206L16.9753 85.2021Z" fill="white" stroke="black" strokeLinejoin="round"/>
+                    <path d="M178.766 85.2018L97.8706 119.206V138.113L178.766 104.108V85.2018C178.766 85.1486 178.766 85.0956 178.766 85.0425V85.2018Z" fill="white"/>
+                    <path d="M178.766 85.2018L97.8706 119.206V138.113L178.766 104.108V85.2018ZM178.766 85.2018V85.0425C178.766 85.0956 178.766 85.1486 178.766 85.2018Z" stroke="black" strokeLinejoin="round"/>
+                    <path d="M178.766 85.2016L97.8705 51.1973L16.9753 85.2017L97.8705 119.206L178.766 85.2016Z" fill="#F9F9F9" stroke="black" strokeLinejoin="round"/>
+                    <path d="M97.8705 20.7207L178.766 54.5656V73.6315L97.8705 107.636L16.9753 73.6315V54.7251L97.8705 20.7207Z" fill="#F9F9F9"/>
+                    <path d="M178.766 54.5656L97.8705 20.7207L16.9753 54.7251M178.766 54.5656L97.8705 88.7294M178.766 54.5656C178.766 54.6187 178.766 54.5124 178.766 54.5656ZM178.766 54.5656V73.6315L97.8705 107.636M97.8705 88.7294L16.9753 54.7251M97.8705 88.7294V107.636M16.9753 54.7251V73.6315L97.8705 107.636" stroke="black" strokeLinejoin="round"/>
+                    <path d="M16.9753 54.7256V73.632L97.8705 107.636" stroke="#5533FF" strokeLinejoin="round"/>
+                    <path d="M178.766 54.5632V73.6317L97.8706 107.636" stroke="#5533FF" strokeLinecap="round" strokeLinejoin="round"/>
+                    <path d="M178.57 54.4864L97.8705 20.7207L16.9753 54.7252" stroke="#5533FF" strokeLinecap="round" strokeLinejoin="round"/>
+                    <path
+                      d="M97.92 0.5 L195.24 40.83 L195.24 147.71 L97.94 188.81 L0.5 147.80 L0.5 40.72 Z"
+                      stroke="#9C9C9C"
+                      strokeWidth="0.5"
+                      strokeDasharray="1.8 1.8"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className={styles.marchDash}
+                    />
                   </svg>
                 ) : (
                   <div

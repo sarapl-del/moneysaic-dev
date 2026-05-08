@@ -29,3 +29,18 @@
     animation: none;
   }
 }
+
+/* Sandbox icon — marching dash outline */
+
+@keyframes marchCW {
+  from { stroke-dashoffset: 636; }
+  to   { stroke-dashoffset: 0; }
+}
+
+.marchDash {
+  animation: marchCW 80s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marchDash { animation: none !important; }
+}
