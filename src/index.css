@@ -91,6 +91,43 @@
     --sidebar-ring: oklch(0.708 0 0);
 }
 
+@keyframes spin-cw {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+@keyframes spin-ccw-90 {
+  from { transform: rotate(90deg); }
+  to { transform: rotate(-270deg); }
+}
+
+@keyframes icon-line-dot {
+  0% {
+    stroke-dashoffset: 72;
+    animation-timing-function: cubic-bezier(0.37, 0, 0.63, 1);
+  }
+  33% { stroke-dashoffset: -100; }
+  100% { stroke-dashoffset: -100; }
+}
+
+@keyframes icon-rise {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .icon-entrance {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;

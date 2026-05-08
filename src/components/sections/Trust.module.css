@@ -1,0 +1,31 @@
+@keyframes rotateCW {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes rotateCCW {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(-360deg); }
+}
+
+.circleTop,
+.circleRight,
+.circleBottom,
+.circleLeft {
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+}
+
+.icon:hover .circleTop    { animation: rotateCW  14s linear infinite; }
+.icon:hover .circleRight  { animation: rotateCCW 12s linear infinite; }
+.icon:hover .circleBottom { animation: rotateCW  10s linear infinite; }
+.icon:hover .circleLeft   { animation: rotateCCW 16s linear infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .icon:hover .circleTop,
+  .icon:hover .circleRight,
+  .icon:hover .circleBottom,
+  .icon:hover .circleLeft {
+    animation: none;
+  }
+}
