@@ -33,7 +33,6 @@ const LINE_DOT_ANIM = (delay: string) =>
 export default function ModularEssentials() {
   const sectionRef = useRef<HTMLElement>(null);
   const [inView, setInView] = useState(false);
-  const [squareOut, setSquareOut] = useState(false);
 
   useEffect(() => {
     const el = sectionRef.current;
@@ -69,25 +68,33 @@ export default function ModularEssentials() {
               <div className="mb-14 flex w-full items-center justify-start md:justify-center">
 
                 {i === 0 ? (
-                  // Column 1: inline SVG, top-right square animates out on hover
+                  // Column 1: 4 squares rotate clockwise — one is "outside" at any time.
+                  // TR starts OUT (negative delay), then TR → BR → BL → TL → TR, etc.
                   <svg
                     width="186.12" height="160" viewBox="0 0 196 196"
                     fill="none" xmlns="http://www.w3.org/2000/svg"
-                    style={{ overflow: "visible", cursor: "default" }}
-                    onMouseEnter={() => setSquareOut(true)}
-                    onMouseLeave={() => setSquareOut(false)}
+                    style={{ overflow: "visible" }}
                   >
-                    <path d="M0.5 19.9736H88.133V107.607H0.5V19.9736Z" fill="white" stroke="black" strokeLinejoin="round" />
-                    <path d="M0.5 107.607H88.133V195.24H0.5V107.607Z" fill="white" stroke="black" strokeLinejoin="round" />
-                    <path d="M88.1328 107.607H175.766V195.24H88.1328V107.607Z" fill="white" stroke="black" strokeLinejoin="round" />
-                    <path
-                      d="M107.607 0.5H195.24V88.133H107.607V0.5Z"
+                    {/* TL — outside offset is up-left, OUT-held at t=5–6s */}
+                    <path d="M0.5 19.9736H88.133V107.607H0.5V19.9736Z"
+                      fill="white" stroke="black" strokeLinejoin="round"
+                      className="icon-square-cycle"
+                      style={{ animationDelay: "4s", "--out-x": "-19.474px", "--out-y": "-19.474px" } as React.CSSProperties} />
+                    {/* BL — outside offset is down-left, OUT-held at t=3–4s */}
+                    <path d="M0.5 107.607H88.133V195.24H0.5V107.607Z"
+                      fill="white" stroke="black" strokeLinejoin="round"
+                      className="icon-square-cycle"
+                      style={{ animationDelay: "2s", "--out-x": "-19.474px", "--out-y": "19.474px" } as React.CSSProperties} />
+                    {/* BR — outside offset is down-right, OUT-held at t=1–2s */}
+                    <path d="M88.1328 107.607H175.766V195.24H88.1328V107.607Z"
+                      fill="white" stroke="black" strokeLinejoin="round"
+                      className="icon-square-cycle"
+                      style={{ animationDelay: "0s", "--out-x": "19.474px", "--out-y": "19.474px" } as React.CSSProperties} />
+                    {/* TR — joined position; negative delay so it starts already at OUT */}
+                    <path d="M88.1328 19.9736H175.766V107.607H88.1328V19.9736Z"
                       fill="#F9F9F9" stroke="black" strokeLinejoin="round"
-                      style={{
-                        transition: `transform 350ms ${EASING}`,
-                        transform: squareOut ? "translate(18px, -18px)" : "translate(0, 0)",
-                      }}
-                    />
+                      className="icon-square-cycle"
+                      style={{ animationDelay: "-2s", "--out-x": "19.474px", "--out-y": "-19.474px" } as React.CSSProperties} />
                   </svg>
 
                 ) : i === 1 ? (
@@ -111,10 +118,20 @@ export default function ModularEssentials() {
                       <rect x="0.589534" y="110.359" width="100.41" height="84.9198" fill="white" stroke="black" strokeWidth="1.17907" />
                       <rect x="126.814" y="110.359" width="100.41" height="84.9198" fill="white" stroke="black" strokeWidth="1.17907" />
                       <rect x="69.8513" y="0.589534" width="100.41" height="84.9198" fill="white" stroke="black" strokeWidth="1.17907" />
-                      {/* Circles inside squares */}
-                      <path fillRule="evenodd" clipRule="evenodd" d="M62.8557 152.819C62.8557 157.283 60.4306 161.18 56.8261 163.265C55.052 164.292 52.9923 164.879 50.7953 164.879C44.1345 164.879 38.7349 159.48 38.7349 152.819C38.7349 146.158 44.1345 140.758 50.7953 140.758C57.4561 140.758 62.8557 146.158 62.8557 152.819Z" fill="#F9F9F9" stroke="black" strokeWidth="1.17907" strokeLinejoin="round" />
-                      <path fillRule="evenodd" clipRule="evenodd" d="M189.079 152.819C189.079 157.283 186.654 161.18 183.05 163.265C181.276 164.292 179.216 164.879 177.019 164.879C170.358 164.879 164.958 159.48 164.958 152.819C164.958 146.158 170.358 140.758 177.019 140.758C183.68 140.758 189.079 146.158 189.079 152.819Z" fill="#F9F9F9" stroke="black" strokeWidth="1.17907" strokeLinejoin="round" />
-                      <path fillRule="evenodd" clipRule="evenodd" d="M132.117 43.0492C132.117 47.513 129.692 51.4104 126.088 53.4958C124.314 54.5222 122.254 55.1096 120.057 55.1096C113.396 55.1096 107.997 49.71 107.997 43.0492C107.997 36.3884 113.396 30.9888 120.057 30.9888C126.718 30.9888 132.117 36.3884 132.117 43.0492Z" fill="#F9F9F9" stroke="black" strokeWidth="1.17907" strokeLinejoin="round" />
+                      {/* Circles inside squares — flash purple when dot arrives.
+                          Delays match arrival times in the 8s line-dot cycle. */}
+                      {/* BL — line 1 (bottom right→left) arrives at ~2.63s */}
+                      <path fillRule="evenodd" clipRule="evenodd" d="M62.8557 152.819C62.8557 157.283 60.4306 161.18 56.8261 163.265C55.052 164.292 52.9923 164.879 50.7953 164.879C44.1345 164.879 38.7349 159.48 38.7349 152.819C38.7349 146.158 44.1345 140.758 50.7953 140.758C57.4561 140.758 62.8557 146.158 62.8557 152.819Z" fill="#F9F9F9" stroke="black" strokeWidth="1.17907" strokeLinejoin="round"
+                        className="icon-circle-flash"
+                        style={{ animationDelay: "2.63s" }} />
+                      {/* BR — line 3 (top→right-bottom) arrives at ~7.9s */}
+                      <path fillRule="evenodd" clipRule="evenodd" d="M189.079 152.819C189.079 157.283 186.654 161.18 183.05 163.265C181.276 164.292 179.216 164.879 177.019 164.879C170.358 164.879 164.958 159.48 164.958 152.819C164.958 146.158 170.358 140.758 177.019 140.758C183.68 140.758 189.079 146.158 189.079 152.819Z" fill="#F9F9F9" stroke="black" strokeWidth="1.17907" strokeLinejoin="round"
+                        className="icon-circle-flash"
+                        style={{ animationDelay: "7.9s" }} />
+                      {/* TOP — line 2 (left→top) arrives at ~5.27s */}
+                      <path fillRule="evenodd" clipRule="evenodd" d="M132.117 43.0492C132.117 47.513 129.692 51.4104 126.088 53.4958C124.314 54.5222 122.254 55.1096 120.057 55.1096C113.396 55.1096 107.997 49.71 107.997 43.0492C107.997 36.3884 113.396 30.9888 120.057 30.9888C126.718 30.9888 132.117 36.3884 132.117 43.0492Z" fill="#F9F9F9" stroke="black" strokeWidth="1.17907" strokeLinejoin="round"
+                        className="icon-circle-flash"
+                        style={{ animationDelay: "5.27s" }} />
                       {/* Connecting lines — traveling dot, clockwise: right→left bottom, left→top, top→right */}
                       {/* Bottom line REVERSED so dot travels right→left */}
                       <line x1="164.668" y1="152.234" x2="101.589" y2="152.234" stroke="#5533ff" strokeWidth="1.17907" strokeDasharray="72 1000" style={{ animation: LINE_DOT_ANIM("0s") }} />
@@ -126,41 +143,60 @@ export default function ModularEssentials() {
                   </div>
 
                 ) : (
-                  // Column 3: three-layer starburst — slow CW rotation + staggered branch pulse
-                  <div
-                    className="icon-entrance"
-                    style={{
-                      width: 160,
-                      height: 160,
-                      animation: inView ? `icon-rise 600ms ${EASING} ${i * STAGGER_MS}ms both` : "none",
-                      opacity: inView ? undefined : 0,
-                    }}
+                  // Column 3: node-graph icon (#173) — each line breathes long↔short while its dot
+                  // tracks the visible outer end. Center junction (76.4158, 112.818) stays fixed.
+                  <svg
+                    width="160" height="160" viewBox="0 0 196 195"
+                    fill="none" xmlns="http://www.w3.org/2000/svg"
+                    style={{ overflow: "visible", display: "block" }}
                   >
-                    <svg
-                      width="160" height="160"
-                      viewBox="0 0 197 195"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                      style={{ overflow: "visible" }}
-                    >
-                      {/* Layer 1: #321 — full position, most prominent */}
-                      <g className="branch-pulse-layer" style={{ transformBox: "fill-box", transformOrigin: "50% 50%", animation: "branchPulse 5s ease-in-out 0s infinite alternate" }}>
-                        <path d="M104.176 89.3434L171.224 111.129C173.51 104.093 174.674 96.7412 174.674 89.3434H104.176ZM104.176 89.3434L165.021 133.532C169.658 127.147 173.261 120.072 175.698 112.567L104.176 89.3434ZM104.176 89.3434L152.499 155.898C159.483 150.827 165.625 144.689 170.701 137.708L104.176 89.3434ZM104.176 89.3434L132.463 176.516C141.611 173.548 150.234 169.158 158.017 163.508L104.176 89.3434ZM104.176 89.3434L136.127 187.68C125.808 191.033 115.026 192.741 104.176 192.741L104.176 89.3434ZM104.176 89.3434L82.3909 156.391C89.4265 158.677 96.7782 159.841 104.176 159.841L104.176 89.3434ZM104.176 89.3434L59.9877 150.188C66.3725 154.825 73.4474 158.428 80.9526 160.865L104.176 89.3434ZM104.176 89.3434L37.6211 137.667C42.692 144.65 48.8305 150.793 55.8113 155.868L104.176 89.3434ZM104.176 89.3434L17.0033 117.631C19.9716 126.778 24.3613 135.402 30.0111 143.184L104.176 89.3434ZM104.176 89.3434L5.83942 121.295C2.48658 110.976 0.778808 100.193 0.778809 89.3432L104.176 89.3434ZM104.174 89.3305L185.504 62.5165C182.649 53.8546 178.427 45.7045 173 38.3743L104.174 89.3305ZM104.174 89.3305L195.519 88.9339C195.477 79.3485 193.927 69.8295 190.926 60.7262L104.174 89.3305ZM104.176 89.3409L25.7437 64.5812C23.1455 72.8115 21.7584 80.7128 21.8307 89.3432L104.176 89.3409ZM104.176 89.3409L29.5868 36.0897C23.9988 43.9168 19.6777 52.5747 16.7819 61.7455L104.176 89.3409ZM104.176 89.3409L20.0012 29.2947C26.3022 20.4617 33.9542 12.6756 42.6763 6.22205L104.176 89.3409ZM104.176 89.3415L81.8091 22.4857C74.7936 24.8328 68.1912 28.2694 62.2443 32.6696L104.176 89.3415ZM104.176 89.3415L103.508 14.1465C95.6172 14.2167 87.7867 15.5283 80.304 18.0333L104.176 89.3415ZM104.176 89.3415L128.936 10.9091C120.705 8.31089 112.117 7.02434 103.487 7.09665L104.176 89.3415ZM104.176 89.3415L157.427 14.7521C149.6 9.16418 140.942 4.84302 131.771 1.94727L104.176 89.3415ZM104.176 89.3415L164.222 5.16655C173.055 11.4675 180.841 19.1195 187.295 27.8417L104.176 89.3415Z" stroke="black" strokeWidth="1.55792" strokeLinejoin="round" />
-                      </g>
-                      {/* Layer 2: #322 — translated to common center, mid opacity */}
-                      <g transform="translate(-21.556 -29.79)">
-                        <g className="branch-pulse-layer" style={{ opacity: 0.45, transformBox: "fill-box", transformOrigin: "50% 50%", animation: "branchPulse 5s ease-in-out 1.67s infinite alternate" }}>
-                          <path d="M125.732 119.133L165.925 132.195C167.295 127.977 167.993 123.569 167.993 119.133H125.732ZM125.732 119.133L162.207 145.628C164.986 141.8 167.146 137.558 168.607 133.058L125.732 119.133ZM125.732 119.133L154.7 159.038C158.887 155.998 162.569 152.318 165.611 148.132L125.732 119.133ZM125.732 119.133L142.689 171.401C148.173 169.621 153.342 166.989 158.008 163.601L125.732 119.133ZM125.732 119.133L144.886 178.094C138.7 180.105 132.236 181.128 125.732 181.128L125.732 119.133ZM125.732 119.133L103.966 186.134C110.996 188.419 118.341 189.582 125.732 189.582V119.133ZM125.732 119.133L78.5477 184.116C85.3654 189.069 92.92 192.917 100.934 195.519L125.732 119.133ZM125.732 119.133L51.6367 172.942C57.2821 180.719 64.116 187.558 71.8878 193.209L125.732 119.133ZM125.732 119.133L26.5773 151.315C29.9537 161.722 34.9467 171.532 41.3731 180.386L125.732 119.133ZM125.732 119.133L13.1919 155.707C9.35482 143.895 7.40039 131.553 7.40039 119.133L125.732 119.133ZM125.732 119.133L138.791 78.9329C134.574 77.5622 130.167 76.8641 125.732 76.8641L125.732 119.133ZM125.732 119.133L152.221 82.6518C148.394 79.8716 144.153 77.7113 139.654 76.2501L125.732 119.133ZM125.732 119.133L165.629 90.1596C162.59 85.9722 158.91 82.2894 154.725 79.2464L125.732 119.133ZM125.732 119.133L177.989 102.173C176.21 96.6881 173.578 91.5177 170.191 86.8514L125.732 119.133ZM125.732 119.133L184.682 99.9759C186.691 106.163 187.715 112.628 187.715 119.133L125.732 119.133ZM125.732 119.133L58.7439 97.3635C56.4598 104.394 55.2965 111.741 55.2965 119.133H125.732ZM125.732 119.133L60.7615 71.9402C55.8102 78.7592 51.9628 86.3152 49.3606 94.3308L125.732 119.133ZM125.732 119.133L71.9338 45.024C64.1586 50.6705 57.3203 57.5057 51.6701 65.2789L125.732 119.133ZM125.732 119.133L93.5564 19.9599C83.1515 23.3369 73.3429 28.3309 64.4906 34.7585L125.732 119.133ZM125.732 119.133L89.1655 6.57196C100.975 2.7341 113.315 0.779295 125.732 0.779297L125.732 119.133Z" stroke="black" strokeWidth="1.55792" strokeLinejoin="round" />
-                        </g>
-                      </g>
-                      {/* Layer 3: #323 — translated to common center, dimmest */}
-                      <g transform="translate(-13.037 -21.445)">
-                        <g className="branch-pulse-layer" style={{ opacity: 0.25, transformBox: "fill-box", transformOrigin: "50% 50%", animation: "branchPulse 5s ease-in-out 3.33s infinite alternate" }}>
-                          <path d="M117.213 110.788L161.806 125.277C163.326 120.598 164.101 115.708 164.101 110.788H117.213ZM117.213 110.788L157.681 140.177C160.765 135.931 163.161 131.225 164.782 126.234L117.213 110.788ZM117.213 110.788L149.353 155.053C153.998 151.68 158.083 147.598 161.458 142.955L117.213 110.788ZM117.213 110.788L136.027 168.765C142.111 166.791 147.846 163.872 153.022 160.114L117.213 110.788ZM117.213 110.788L138.464 176.19C131.601 178.42 124.43 179.556 117.213 179.556L117.213 110.788ZM117.213 110.788L42.9565 135.132C45.5111 142.924 49.2762 150.266 54.1137 156.887L117.213 110.788ZM117.213 110.788L64.8643 182.87C72.4283 188.364 80.8098 192.632 89.7012 195.519L117.213 110.788ZM117.213 110.788L35.0075 170.475C41.2708 179.102 48.8529 186.688 57.4753 192.957L117.213 110.788ZM117.213 110.788L1.55811 110.969C1.57707 123.105 3.50616 135.163 7.27457 146.699L117.213 110.788ZM117.213 110.788L117.283 171.742C110.887 171.749 104.529 170.749 98.4441 168.78L117.213 110.788ZM117.213 110.788L131.703 66.1954C127.023 64.6749 122.134 63.9005 117.214 63.9005L117.213 110.788ZM117.213 110.788L146.603 70.3206C142.356 67.2366 137.651 64.8403 132.659 63.2195L117.213 110.788ZM117.213 110.788L117.2 56.0859C111.46 56.0874 105.755 56.9923 100.297 58.7675L117.213 110.788ZM117.213 110.788L175.191 91.9743C173.217 85.8904 170.297 80.1551 166.54 74.979L117.213 110.788ZM117.213 110.788L182.616 89.5374C184.846 96.4004 185.982 103.572 185.982 110.788H117.213ZM117.213 110.788L42.8926 86.6396C40.3586 94.4385 39.0679 102.588 39.0679 110.788L117.213 110.788ZM117.213 110.788L45.1311 58.4386C39.6378 66.0027 35.3693 74.3842 32.4823 83.2755L117.213 110.788ZM117.213 110.788L57.5264 28.5818C48.9 34.8451 41.3133 42.4272 35.0446 51.0497L117.213 110.788ZM117.213 110.788L81.5159 0.779297C69.972 4.52527 59.0897 10.0649 49.2685 17.1948L117.213 110.788ZM117.213 110.788L172.546 34.6906C180.531 40.4969 187.553 47.5239 193.353 55.5137L117.213 110.788Z" stroke="black" strokeWidth="1.55792" strokeLinejoin="round" />
-                        </g>
-                      </g>
-                    </svg>
-                  </div>
+                    {/* Lines — pathLength="100", inner endpoint at center never moves */}
+                    <line className="graph-line" x1="76.4158" y1="112.818" x2="121.145" y2="93.5575" stroke="#111111" strokeLinejoin="round" pathLength="100"
+                      style={{ animationDuration: "11s", animationDelay: "0s" } as React.CSSProperties} />
+                    <line className="graph-line" x1="76.4158" y1="112.818" x2="151.792" y2="34.3818" stroke="#111111" strokeLinejoin="round" pathLength="100"
+                      style={{ animationDuration: "13s", animationDelay: "1.5s" } as React.CSSProperties} />
+                    <line className="graph-line" x1="76.4158" y1="112.818" x2="70.6782" y2="57.4198" stroke="#111111" strokeLinejoin="round" pathLength="100"
+                      style={{ animationDuration: "10s", animationDelay: "3.2s" } as React.CSSProperties} />
+                    <line className="graph-line" x1="76.4158" y1="112.818" x2="177.975" y2="167.018" stroke="#111111" strokeLinejoin="round" pathLength="100"
+                      style={{ animationDuration: "14s", animationDelay: "0.7s" } as React.CSSProperties} />
+                    <line className="graph-line" x1="76.4158" y1="112.818" x2="20.4717" y2="108.051" stroke="#111111" strokeLinejoin="round" pathLength="100"
+                      style={{ animationDuration: "12s", animationDelay: "2.4s" } as React.CSSProperties} />
+                    <line className="graph-line" x1="76.4158" y1="112.818" x2="90.6645" y2="142.459" stroke="#111111" strokeLinejoin="round" pathLength="100"
+                      style={{ animationDuration: "9s", animationDelay: "4.3s" } as React.CSSProperties} />
+                    <line className="graph-line" x1="76.4158" y1="112.818" x2="15.5314" y2="30.1396" stroke="#111111" strokeLinejoin="round" pathLength="100"
+                      style={{ animationDuration: "15s", animationDelay: "1.1s" } as React.CSSProperties} />
+
+                    {/* Dots — each shares its line's duration+delay, translates inward by
+                        20% of the line's direction toward the center to stay glued to the visible end */}
+                    {/* Dot for line 2 → endpoint (151.792, 34.3818) */}
+                    <path d="M167.534 26.8542C167.534 32.175 163.195 36.4883 157.842 36.4883C155.553 36.4883 153.45 35.7001 151.792 34.3818C149.571 32.6164 148.149 29.9004 148.149 26.8542C148.149 21.5334 152.489 17.2201 157.842 17.2201C163.195 17.2201 167.534 21.5334 167.534 26.8542Z" fill="white" stroke="#111111" strokeLinejoin="round"
+                      className="graph-node"
+                      style={{ animationDuration: "13s", animationDelay: "1.5s", "--peak-x": "-15.08px", "--peak-y": "15.69px" } as React.CSSProperties} />
+                    {/* Dot for line 1 → endpoint (121.145, 93.5575) */}
+                    <path d="M139.258 88.7829C139.258 94.1036 134.918 98.417 129.565 98.417C125.96 98.417 122.814 96.4605 121.145 93.5575C120.335 92.1501 119.872 90.5202 119.872 88.7829C119.872 83.4621 124.212 79.1488 129.565 79.1488C134.918 79.1488 139.258 83.4621 139.258 88.7829Z" fill="#5533FF" stroke="#111111" strokeLinejoin="round"
+                      className="graph-node"
+                      style={{ animationDuration: "11s", animationDelay: "0s", "--peak-x": "-8.95px", "--peak-y": "3.85px" } as React.CSSProperties} />
+                    {/* Dot for line 4 → endpoint (177.975, 167.018) */}
+                    <path d="M195.24 173.032C195.24 178.353 190.9 182.666 185.547 182.666C180.194 182.666 175.855 178.353 175.855 173.032C175.855 170.757 176.648 168.666 177.975 167.018C179.751 164.811 182.483 163.398 185.547 163.398C190.9 163.398 195.24 167.711 195.24 173.032Z" fill="white" stroke="#111111" strokeLinejoin="round"
+                      className="graph-node"
+                      style={{ animationDuration: "14s", animationDelay: "0.7s", "--peak-x": "-20.31px", "--peak-y": "-10.84px" } as React.CSSProperties} />
+                    {/* Dot for line 6 → endpoint (90.6645, 142.459) */}
+                    <path d="M103.854 151.448C103.854 156.768 99.514 161.082 94.1609 161.082C88.8078 161.082 84.4682 156.768 84.4682 151.448C84.4682 147.352 87.0392 143.853 90.6645 142.459C91.7492 142.042 92.9282 141.813 94.1609 141.813C99.514 141.813 103.854 146.127 103.854 151.448Z" fill="#5533FF" stroke="#111111" strokeLinejoin="round"
+                      className="graph-node"
+                      style={{ animationDuration: "9s", animationDelay: "4.3s", "--peak-x": "-2.85px", "--peak-y": "-5.93px" } as React.CSSProperties} />
+                    {/* Dot for line 5 → endpoint (20.4717, 108.051) */}
+                    <path d="M20.4717 108.051C20.4717 113.372 16.1321 117.685 10.779 117.685C5.42585 117.685 1.08628 113.372 1.08628 108.051C1.08628 102.73 5.42585 98.4169 10.779 98.4169C14.0041 98.4169 16.8614 99.9826 18.6234 102.391C19.7859 103.98 20.4717 105.936 20.4717 108.051Z" fill="white" stroke="#111111" strokeLinejoin="round"
+                      className="graph-node"
+                      style={{ animationDuration: "12s", animationDelay: "2.4s", "--peak-x": "11.19px", "--peak-y": "0.95px" } as React.CSSProperties} />
+                    {/* Dot for line 7 → endpoint (15.5314, 30.1396) */}
+                    <path d="M10.1927 31.7315C4.83956 31.7315 0.5 27.4181 0.5 22.0974C0.5 16.7766 4.83956 12.4633 10.1927 12.4633C15.5458 12.4633 19.8854 16.7766 19.8854 22.0974C19.8854 23.8273 19.4266 25.4508 18.6234 26.8542C17.8666 28.1765 16.8041 29.3033 15.5314 30.1396C14.0004 31.1457 12.1654 31.7315 10.1927 31.7315Z" fill="#5533FF" stroke="#111111" strokeLinejoin="round"
+                      className="graph-node"
+                      style={{ animationDuration: "15s", animationDelay: "1.1s", "--peak-x": "12.18px", "--peak-y": "16.54px" } as React.CSSProperties} />
+                    {/* Dot for line 3 → endpoint (70.6782, 57.4198) */}
+                    <path d="M70.6782 57.4198C65.3251 57.4198 60.9855 53.1065 60.9855 47.7857C60.9855 42.4649 65.3251 38.1515 70.6782 38.1515C76.0313 38.1515 80.3709 42.4649 80.3709 47.7857C80.3709 49.5157 79.9121 51.1392 79.1089 52.5425C77.4418 55.4553 74.2908 57.4198 70.6782 57.4198Z" fill="white" stroke="#111111" strokeLinejoin="round"
+                      className="graph-node"
+                      style={{ animationDuration: "10s", animationDelay: "3.2s", "--peak-x": "1.15px", "--peak-y": "11.08px" } as React.CSSProperties} />
+                  </svg>
                 )}
 
               </div>

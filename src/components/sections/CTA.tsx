@@ -1,11 +1,16 @@
 import { Button } from "@/components/ui/button";
 import { ArrowUpRight } from "lucide-react";
 
+// Trailing \n encodes as %0A, which auto-submits the prompt on each LLM's chat input.
+const LLM_PROMPT = "how is moneysaic better than other fintech white label platforms?\n";
+const q = encodeURIComponent(LLM_PROMPT);
+
 const llmLinks = [
-  { name: "ask chatgpt", icon: "/images/logo-chatgpt.png" },
-  { name: "ask gemini", icon: "/images/logo-gemini.png" },
-  { name: "ask claude", icon: "/images/logo-claude.png" },
-  { name: "ask perplexity", icon: "/images/logo-perplexity.png" },
+  { name: "ask chatgpt", icon: "/images/logo-chatgpt.png", url: `https://chatgpt.com/?q=${q}` },
+  // gemini.google.com ignores ?q=, so route through Google Search's AI Mode (udm=50), which runs on Gemini.
+  { name: "ask gemini", icon: "/images/logo-gemini.png", url: `https://www.google.com/search?udm=50&q=${q}` },
+  { name: "ask claude", icon: "/images/logo-claude.png", url: `https://claude.ai/new?q=${q}` },
+  { name: "ask perplexity", icon: "/images/logo-perplexity.png", url: `https://www.perplexity.ai/search?q=${q}` },
 ];
 
 export default function CTA() {
@@ -53,7 +58,9 @@ export default function CTA() {
               {llmLinks.map((link) => (
                 <a
                   key={link.name}
-                  href="#"
+                  href={link.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="flex w-full items-center justify-between rounded-[3px] border border-gray-border bg-white px-4 py-2 transition-colors hover:border-brand sm:w-[240px]"
                 >
                   <div className="flex items-center gap-2">

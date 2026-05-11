@@ -6,6 +6,58 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* Smooth scrolling for anchor links & programmatic scrolls. Reduced-motion override below. */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Scroll-triggered reveal: every section in <main> except the first (Hero) fades up
+   when it enters the viewport. The "in-view" class is added by an IntersectionObserver
+   in App.tsx — once added, it's never removed, so each section reveals exactly once. */
+main > section:not(:first-of-type) {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 700ms cubic-bezier(0.25, 1, 0.5, 1),
+              transform 700ms cubic-bezier(0.25, 1, 0.5, 1);
+  will-change: opacity, transform;
+}
+
+main > section:not(:first-of-type).in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  main > section:not(:first-of-type) {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
+/* Hero load-in: nav, heading, and background are visible at t=0.
+   Subhead, CTA, and logo bar fade up on staggered delays set inline in Hero.tsx. */
+@keyframes hero-fade-up {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.hero-fade-up {
+  opacity: 0;
+  transform: translateY(12px);
+  animation: hero-fade-up 900ms cubic-bezier(0.25, 1, 0.5, 1) both;
+  will-change: opacity, transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-fade-up {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
 @theme inline {
     --font-heading: 'Plus Jakarta Sans Variable', sans-serif;
     --font-sans: 'Plus Jakarta Sans Variable', sans-serif;
@@ -109,6 +161,37 @@
   100% { stroke-dashoffset: -100; }
 }
 
+/* Column 2 — each inner circle flashes purple at the moment its line's dot arrives.
+   Shares the 8s line-dot cycle; per-circle animation-delay = arrival time within the cycle. */
+@keyframes icon-circle-flash {
+  0%, 5%    { fill: #5533ff; }
+  20%, 100% { fill: #F9F9F9; }
+}
+
+.icon-circle-flash {
+  animation-name: icon-circle-flash;
+  animation-duration: 8s;
+  animation-timing-function: cubic-bezier(0.25, 1, 0.5, 1);
+  animation-iteration-count: infinite;
+}
+
+/* Column 1 — squares rotate clockwise: one is "outside" at a time.
+   Keyframe: JOINED → OUT (1s) → held OUT (1s) → JOINED (1s) → held JOINED (5s).
+   --out-x / --out-y per square = diagonal offset to its outward position.
+   Per-square animation-delay staggers the OUT-held phases 2s apart, going clockwise. */
+@keyframes icon-square-cycle {
+  0%, 37.5%, 100% { transform: translate(0, 0); }
+  12.5%, 25%      { transform: translate(var(--out-x), var(--out-y)); }
+}
+
+.icon-square-cycle {
+  animation-name: icon-square-cycle;
+  animation-duration: 8s;
+  animation-timing-function: cubic-bezier(0.25, 1, 0.5, 1);
+  animation-iteration-count: infinite;
+  will-change: transform;
+}
+
 @keyframes icon-rise {
   from {
     opacity: 0;
@@ -125,6 +208,37 @@
   to   { transform: scale(1); }
 }
 
+/* Column 3 — graph icon: each line retracts inward from its outer end (center stays fixed),
+   and each dot translates along the line direction by the same percentage so it stays
+   glued to the visible end of its line.
+   - Line: pathLength="100" + stroke-dasharray "100 200"; dashoffset 0 → 20 = 20% retract from outer end.
+   - Dot:  per-pair --peak-x/--peak-y = (center - endpoint) × 0.20, applied at the breath peak.
+   - Each pair shares the same inline animation-duration and animation-delay so they tick in sync. */
+@keyframes graph-line-breath {
+  0%, 100% { stroke-dashoffset: 0; }
+  50%      { stroke-dashoffset: 20; }
+}
+
+@keyframes graph-node-breath {
+  0%, 100% { transform: translate(0px, 0px); }
+  50%      { transform: translate(var(--peak-x), var(--peak-y)); }
+}
+
+.graph-line {
+  stroke-dasharray: 100 200;
+  animation-name: graph-line-breath;
+  animation-timing-function: cubic-bezier(0.45, 0, 0.55, 1);
+  animation-iteration-count: infinite;
+  will-change: stroke-dashoffset;
+}
+
+.graph-node {
+  animation-name: graph-node-breath;
+  animation-timing-function: cubic-bezier(0.45, 0, 0.55, 1);
+  animation-iteration-count: infinite;
+  will-change: transform;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .icon-entrance {
     animation: none !important;
@@ -134,6 +248,20 @@
   .branch-pulse-layer {
     animation: none !important;
     transform: scale(1) !important;
+  }
+  .graph-line,
+  .graph-node {
+    animation: none !important;
+    transform: none !important;
+    stroke-dashoffset: 0 !important;
+  }
+  .icon-circle-flash {
+    animation: none !important;
+    fill: #F9F9F9 !important;
+  }
+  .icon-square-cycle {
+    animation: none !important;
+    transform: none !important;
   }
 }
 

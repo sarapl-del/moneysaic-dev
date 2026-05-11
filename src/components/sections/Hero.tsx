@@ -8,6 +8,12 @@ const logos = [
   { src: "/images/logo-currencycloud.svg", alt: "Currencycloud", className: "h-10" },
 ];
 
+// Hero load-in: nav/heading/background are visible immediately at t=0.
+// Subhead, CTA, and logo bar then fade up with a tight 150ms stagger so they cross-fade smoothly.
+const SUBHEAD_DELAY_MS = 250;
+const CTA_DELAY_MS = 400;
+const LOGOS_DELAY_MS = 550;
+
 export default function Hero() {
   return (
     <section
@@ -24,14 +30,23 @@ export default function Hero() {
           <span className="text-brand">Without building it from scratch.</span>
         </h1>
 
-        <p className="max-w-[560px] text-base leading-relaxed text-dark md:text-lg">
+        <p
+          className="hero-fade-up max-w-[560px] text-base leading-relaxed text-dark md:text-lg"
+          style={{ animationDelay: `${SUBHEAD_DELAY_MS}ms` }}
+        >
           moneysaic gives{" "}
           <strong>fintech founders and digital banking teams</strong> a fully
           designed, compliance-ready module stack — branded as your own and live
           in weeks, not months.
         </p>
 
-        <a href="https://calendly.com/doug-barr-dlabs/30min" target="_blank" rel="noopener noreferrer">
+        <a
+          href="https://calendly.com/doug-barr-dlabs/30min"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="hero-fade-up"
+          style={{ animationDelay: `${CTA_DELAY_MS}ms` }}
+        >
           <Button className="h-12 rounded-[7px] bg-brand px-8 py-5 text-base font-normal text-white hover:bg-brand/90">
             Book a 30-min Call →
           </Button>
@@ -39,7 +54,10 @@ export default function Hero() {
       </div>
 
       {/* Logo bar */}
-      <div className="w-full border-t border-muted-border">
+      <div
+        className="hero-fade-up w-full border-t border-muted-border"
+        style={{ animationDelay: `${LOGOS_DELAY_MS}ms` }}
+      >
         <div className="mx-auto flex max-w-[1440px] flex-col items-center gap-6 px-9 py-6 md:flex-row md:justify-center md:gap-20">
           <span className="whitespace-nowrap font-mono text-xs font-medium uppercase tracking-widest text-muted-foreground">
             our ecosystem parterships
