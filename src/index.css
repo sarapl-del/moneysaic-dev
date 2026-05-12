@@ -161,11 +161,12 @@ main > section:not(:first-of-type).in-view {
   100% { stroke-dashoffset: -100; }
 }
 
-/* Column 2 — each inner circle flashes purple at the moment its line's dot arrives.
+/* Column 2 — each inner circle's STROKE flashes purple at the moment its line's dot arrives.
+   Fill stays #F9F9F9; only the outline color changes.
    Shares the 8s line-dot cycle; per-circle animation-delay = arrival time within the cycle. */
 @keyframes icon-circle-flash {
-  0%, 5%    { fill: #5533ff; }
-  20%, 100% { fill: #F9F9F9; }
+  0%, 5%    { stroke: #5533ff; }
+  20%, 100% { stroke: black; }
 }
 
 .icon-circle-flash {
@@ -257,7 +258,7 @@ main > section:not(:first-of-type).in-view {
   }
   .icon-circle-flash {
     animation: none !important;
-    fill: #F9F9F9 !important;
+    stroke: black !important;
   }
   .icon-square-cycle {
     animation: none !important;

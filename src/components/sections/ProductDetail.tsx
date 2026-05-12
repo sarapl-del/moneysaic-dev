@@ -1,6 +1,36 @@
-import React from "react";
+import { useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Monitor, Smartphone } from "lucide-react";
+
+function KycMockupStack({ images, title }: { images: string[]; title: string }) {
+  const [activeIdx, setActiveIdx] = useState<number | null>(null);
+
+  return (
+    <div className="flex w-full max-w-[78rem] items-center justify-center px-[4%] py-[7%]">
+      {images.map((img, idx) => {
+        const isActive = activeIdx === idx;
+        return (
+          <button
+            key={idx}
+            type="button"
+            onClick={() => setActiveIdx(isActive ? null : idx)}
+            aria-pressed={isActive}
+            aria-label={`${title} step ${idx + 1}`}
+            className={`relative min-w-0 flex-1 cursor-pointer appearance-none border-0 bg-transparent p-0 transition-transform duration-[400ms] [transition-timing-function:cubic-bezier(0.25,1,0.5,1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/60 focus-visible:ring-offset-2 motion-reduce:transition-none ${
+              idx > 0 ? "-ml-8" : ""
+            } ${isActive ? "scale-[1.35]" : ""}`}
+            style={{
+              zIndex: isActive ? 60 : images.length - idx,
+              transformOrigin: "center center",
+            }}
+          >
+            <img src={img} alt="" className="block w-full" />
+          </button>
+        );
+      })}
+    </div>
+  );
+}
 
 const modules = [
   {
@@ -8,6 +38,13 @@ const modules = [
     subtitle: "Every entry flow comes pre-built, Sumsub integrated, and ready to brand as your own.",
     pills: ["Sign up", "Sign in", "Authentication & 2FA", "Biometrics", "KYC & Onboarding"],
     description: null,
+    mobileImages: [
+      "/images/KYC - List - Empty.png",
+      "/images/KYC - Steps -  Personal information.png",
+      "/images/KYC - Steps -  Verify identity.png",
+      "/images/KYC - Steps -  Verify identity - Scan document.png",
+      "/images/KYC - Completed.png",
+    ],
     mobileImage: "/images/mockup-mobile-1.png",
     desktopImage: "/images/MockupDesktop1.png",
   },
@@ -17,6 +54,13 @@ const modules = [
     pills: ["Account dashboard", "Payments UI", "Cards management UI", "Wallet & Ledger Interfaces", "Localisation"],
     nowrapPills: true,
     description: null,
+    mobileImages: [
+      "/images/Display Screen1.png",
+      "/images/Display Screen2.png",
+      "/images/Display Screen3.png",
+      "/images/Display Screen4.png",
+      "/images/Display Screen5.png",
+    ],
     mobileImage: "/images/mockup-mobile-2.png",
     desktopImage: "/images/MockupDesktop2.png",
   },
@@ -26,6 +70,13 @@ const modules = [
     pills: ["Account settings", "Security controls", "Document access", "Notification preferences", "Open Banking and COP", "AML & transaction Monitoring"],
     nowrapPills: true,
     description: null,
+    mobileImages: [
+      "/images/Display Screen6.png",
+      "/images/Display Screen7.png",
+      "/images/Display Screen8.png",
+      "/images/Display Screen9.png",
+      "/images/Display Screen10.png",
+    ],
     mobileImage: "/images/mockup-mobile-3.png",
     desktopImage: "/images/MockupDesktop3.png",
   },
@@ -70,8 +121,9 @@ export default function ProductDetail() {
             className="-mx-9"
             style={{
               backgroundImage: "url('/images/saicbg.svg')",
-              backgroundSize: "100% 100%",
+              backgroundSize: "100% calc(100% + 56px)",
               backgroundRepeat: "no-repeat",
+              backgroundPosition: "0 -56px",
             }}
           >
             <TabsContent value="mobile" className="space-y-16 px-8 py-12">
@@ -99,11 +151,15 @@ export default function ProductDetail() {
                     )}
                   </div>
                   <div className="flex items-center justify-center">
-                    <img
-                      src={mod.mobileImage}
-                      alt={mod.title}
-                      className="w-full max-w-4xl"
-                    />
+                    {"mobileImages" in mod && mod.mobileImages ? (
+                      <KycMockupStack images={mod.mobileImages} title={mod.title} />
+                    ) : (
+                      <img
+                        src={mod.mobileImage}
+                        alt={mod.title}
+                        className="w-full max-w-6xl"
+                      />
+                    )}
                   </div>
                 </div>
               ))}
@@ -137,7 +193,7 @@ export default function ProductDetail() {
                     <img
                       src={mod.desktopImage}
                       alt={mod.title}
-                      className="w-full max-w-5xl"
+                      className="w-full max-w-7xl"
                     />
                   </div>
                 </div>

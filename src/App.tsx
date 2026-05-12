@@ -6,7 +6,6 @@ import Testimonial from "@/components/sections/Testimonial";
 import HowItWorks from "@/components/sections/HowItWorks";
 import ModularEssentials from "@/components/sections/ModularEssentials";
 import MockupSection from "@/components/sections/MockupSection";
-import Value from "@/components/sections/Value";
 import Trust from "@/components/sections/Trust";
 import FAQ from "@/components/sections/FAQ";
 import CTA from "@/components/sections/CTA";
@@ -39,7 +38,6 @@ function App() {
         <Testimonial />
         <MockupSection />
         <ModularEssentials />
-        <Value />
         <Testimonial />
         <HowItWorks />
         <Testimonial />

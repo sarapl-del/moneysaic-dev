@@ -10,10 +10,7 @@ export default function Navigation() {
     <header className="sticky top-0 z-50 w-full bg-white/80 backdrop-blur-md border-b border-muted-border">
       <div className="mx-auto flex h-16 max-w-[1440px] items-center justify-between px-9">
         {/* Logo */}
-        <a href="/" className="flex items-center gap-2.5">
-          <div className="flex h-8 w-8 items-center justify-center rounded-[7px] bg-dark">
-            <img src="/images/logo-icon.svg" alt="" className="h-8 w-8" />
-          </div>
+        <a href="/" className="flex items-center">
           <span className="text-base font-semibold text-dark">moneysaic</span>
         </a>
 

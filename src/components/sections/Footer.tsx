@@ -8,10 +8,7 @@ export default function Footer() {
 
           {/* Column 1 */}
           <div className="col-span-2 md:col-span-1">
-            <div className="mb-4 flex items-center gap-2.5">
-              <div className="flex h-8 w-8 items-center justify-center rounded-[7px] bg-dark">
-                <img src="/images/logo-icon.svg" alt="" className="h-8 w-8" />
-              </div>
+            <div className="mb-4 flex items-center">
               <span className="text-base font-semibold text-dark">moneysaic</span>
             </div>
             <p className="w-[280px] text-base leading-6 text-dark">
@@ -36,10 +33,20 @@ export default function Footer() {
           {/* Column 3 */}
           <div className="flex flex-col gap-3">
             <span className="text-base leading-6 font-semibold text-dark">Company</span>
-            <a href="#" className="text-base leading-6 font-normal text-dark hover:text-brand transition-colors">
+            <a
+              href="https://www.dlabs.io/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-base leading-6 font-normal text-dark hover:text-brand transition-colors"
+            >
               About d.labs
             </a>
-            <a href="#" className="text-base leading-6 font-normal text-dark hover:text-brand transition-colors">
+            <a
+              href="https://www.linkedin.com/company/d.labs/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-base leading-6 font-normal text-dark hover:text-brand transition-colors"
+            >
               LinkedIn
             </a>
           </div>
@@ -64,7 +71,12 @@ export default function Footer() {
               Cookie Policy
             </a>
           </nav>
-          <a href="#" aria-label="LinkedIn">
+          <a
+            href="https://www.linkedin.com/company/d.labs/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="LinkedIn"
+          >
             <img src="/images/icon-linkedin.svg" alt="LinkedIn" className="h-5 w-5" />
           </a>
         </div>

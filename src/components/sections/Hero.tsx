@@ -26,18 +26,18 @@ export default function Hero() {
       {/* Content */}
       <div className="mx-auto flex max-w-[1440px] flex-col items-center gap-10 px-9 pt-24 pb-16 text-center md:pt-32 md:pb-20">
         <h1 className="max-w-[580px] text-4xl font-bold leading-[1.1] tracking-tight text-dark md:text-5xl">
-          Launch a compliant fintech product.{" "}
-          <span className="text-brand">Without building it from scratch.</span>
+          The product layer{" "}
+          <span className="text-brand">for regulated finance.</span>
         </h1>
 
         <p
-          className="hero-fade-up max-w-[560px] text-base leading-relaxed text-dark md:text-lg"
+          className="hero-fade-up max-w-[640px] text-base leading-relaxed text-dark md:text-lg"
           style={{ animationDelay: `${SUBHEAD_DELAY_MS}ms` }}
         >
-          moneysaic gives{" "}
-          <strong>fintech founders and digital banking teams</strong> a fully
-          designed, compliance-ready module stack — branded as your own and live
-          in weeks, not months.
+          A modular kit for banks, business units, and embeded finance teams
+          launching digital products. Branded as yours.{" "}
+          <span className="whitespace-nowrap">Compliance-ready.</span> Live in
+          12 weeks, on top of your existing rails.
         </p>
 
         <a
@@ -48,7 +48,7 @@ export default function Hero() {
           style={{ animationDelay: `${CTA_DELAY_MS}ms` }}
         >
           <Button className="h-12 rounded-[7px] bg-brand px-8 py-5 text-base font-normal text-white hover:bg-brand/90">
-            Book a 30-min Call →
+            Book a meeting with our team →
           </Button>
         </a>
       </div>

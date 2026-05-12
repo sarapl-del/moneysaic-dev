@@ -23,7 +23,7 @@ export default function MockupSection() {
         >
           <div className="flex items-center justify-center p-8 md:p-16">
             <img
-              src="/images/Mockup Brand.png"
+              src="/images/Mockup Green.png"
               alt="Desktop application dashboard"
               className="w-full max-w-5xl"
             />
