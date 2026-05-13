@@ -2,11 +2,11 @@ import { useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Monitor, Smartphone } from "lucide-react";
 
-function KycMockupStack({ images, title }: { images: string[]; title: string }) {
+function KycMockupStack({ images, title, maxWidth = "78rem" }: { images: string[]; title: string; maxWidth?: string }) {
   const [activeIdx, setActiveIdx] = useState<number | null>(null);
 
   return (
-    <div className="flex w-full max-w-[78rem] items-center justify-center px-[4%] py-[7%]">
+    <div className="flex w-full items-center justify-center px-[4%] py-[7%]" style={{ maxWidth }}>
       {images.map((img, idx) => {
         const isActive = activeIdx === idx;
         return (
@@ -46,6 +46,10 @@ const modules = [
       "/images/KYC - Completed.png",
     ],
     mobileImage: "/images/mockup-mobile-1.png",
+    desktopImages: [
+      "/images/Desktop_KYC - List - Empty.png",
+      "/images/Desktop_KYC - Steps -  Verify identity - Scan document.png",
+    ],
     desktopImage: "/images/MockupDesktop1.png",
   },
   {
@@ -62,6 +66,10 @@ const modules = [
       "/images/Display Screen5.png",
     ],
     mobileImage: "/images/mockup-mobile-2.png",
+    desktopImages: [
+      "/images/Dashboard - Full.png",
+      "/images/Cards - Card details - New card.png",
+    ],
     desktopImage: "/images/MockupDesktop2.png",
   },
   {
@@ -78,6 +86,10 @@ const modules = [
       "/images/Display Screen10.png",
     ],
     mobileImage: "/images/mockup-mobile-3.png",
+    desktopImages: [
+      "/images/Profile - KYC1.png",
+      "/images/Profile - KYC2.png",
+    ],
     desktopImage: "/images/MockupDesktop3.png",
   },
 ];
@@ -117,16 +129,17 @@ export default function ProductDetail() {
             </TabsTrigger>
           </TabsList>
 
-          <div
-            className="-mx-9"
-            style={{
-              backgroundImage: "url('/images/saicbg.svg')",
-              backgroundSize: "100% calc(100% + 56px)",
-              backgroundRepeat: "no-repeat",
-              backgroundPosition: "0 -56px",
-            }}
-          >
-            <TabsContent value="mobile" className="space-y-16 px-8 py-12">
+          <div className="-mx-9">
+            <TabsContent
+              value="mobile"
+              className="space-y-16 px-8 py-12"
+              style={{
+                backgroundImage: "url('/images/saicbg.svg')",
+                backgroundSize: "100% auto",
+                backgroundRepeat: "no-repeat",
+                backgroundPosition: "0 -56px",
+              }}
+            >
               {modules.map((mod, i) => (
                 <div key={i}>
                   <div className={`mb-8 pl-0 md:pl-6 lg:pl-10 ${"nowrapPills" in mod && mod.nowrapPills ? "max-w-5xl" : "max-w-2xl"}`}>
@@ -165,7 +178,16 @@ export default function ProductDetail() {
               ))}
             </TabsContent>
 
-            <TabsContent value="desktop" className="space-y-16 px-8 py-12">
+            <TabsContent
+              value="desktop"
+              className="space-y-16 px-8 py-12"
+              style={{
+                backgroundImage: "url('/images/saicbg.svg')",
+                backgroundSize: "100% auto",
+                backgroundRepeat: "no-repeat",
+                backgroundPosition: "0 -56px",
+              }}
+            >
               {modules.map((mod, i) => (
                 <div key={i}>
                   <div className={`mb-8 pl-0 md:pl-6 lg:pl-10 ${"nowrapPills" in mod && mod.nowrapPills ? "max-w-5xl" : "max-w-2xl"}`}>
@@ -190,11 +212,15 @@ export default function ProductDetail() {
                     )}
                   </div>
                   <div className="flex items-center justify-center">
-                    <img
-                      src={mod.desktopImage}
-                      alt={mod.title}
-                      className="w-full max-w-7xl"
-                    />
+                    {"desktopImages" in mod && mod.desktopImages ? (
+                      <KycMockupStack images={mod.desktopImages} title={mod.title} maxWidth="90rem" />
+                    ) : (
+                      <img
+                        src={mod.desktopImage}
+                        alt={mod.title}
+                        className="w-full max-w-7xl"
+                      />
+                    )}
                   </div>
                 </div>
               ))}

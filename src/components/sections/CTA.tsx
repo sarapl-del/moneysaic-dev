@@ -25,18 +25,18 @@ export default function CTA() {
       <div className="mx-auto max-w-[1440px] px-9 py-20 md:py-28">
         {/* Main CTA */}
         <div className="mx-auto mb-20 flex max-w-3xl flex-col items-center text-center md:mb-28">
-          <h2 className="mb-8 text-4xl font-bold leading-tight tracking-tight text-dark md:text-5xl lg:text-6xl lg:leading-[70px]">
-            Let's find out if moneysaic is{" "}
+          <h2 className="mb-8 max-w-[580px] text-4xl font-bold leading-[1.1] tracking-tight text-dark md:text-5xl">
+            Let's find out if <span className="text-brand">moneysaic is</span>{" "}
             <span className="text-brand">the right fit.</span>
           </h2>
-          <p className="mb-10 max-w-lg text-lg font-normal leading-[29px] text-dark md:text-xl">
+          <p className="mb-10 max-w-[640px] text-base leading-relaxed text-dark md:text-lg">
             Book a 30-minute call with an expert. We'll cover your product
             goals, which modules apply, and a realistic launch timeline — no
             sales theatre.
           </p>
           <a href="https://calendly.com/doug-barr-dlabs/30min" target="_blank" rel="noopener noreferrer">
             <Button className="h-12 rounded-[7px] bg-brand px-6 py-4 text-base font-normal text-white hover:bg-brand/90">
-              Book a 30-min Call →
+              Book a meeting with our team →
             </Button>
           </a>
         </div>

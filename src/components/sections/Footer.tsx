@@ -12,7 +12,7 @@ export default function Footer() {
               <span className="text-base font-semibold text-dark">moneysaic</span>
             </div>
             <p className="w-[280px] text-base leading-6 text-dark">
-              Launch a compliant fintech product. Without building it from scratch.
+              The product layer for<br />regulated finance.
             </p>
           </div>
 

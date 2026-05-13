@@ -266,6 +266,67 @@ main > section:not(:first-of-type).in-view {
   }
 }
 
+/* MockupSection: pulsing dot indicator over the Home tab.
+   The dot itself is solid; a ::before pseudo expands+fades to create the pulse halo. */
+.mockup-pulse-dot {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 9999px;
+  background-color: var(--color-brand, #4f46e5);
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.85);
+}
+.mockup-pulse-dot::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  background-color: var(--color-brand, #4f46e5);
+  opacity: 0.55;
+  animation: mockup-pulse 1.8s ease-out infinite;
+}
+@keyframes mockup-pulse {
+  0%   { transform: scale(1);   opacity: 0.55; }
+  100% { transform: scale(2.6); opacity: 0;    }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mockup-pulse-dot::before { animation: none; }
+}
+
+/* Hero: slow-drifting gradient (::before) under the static grid pattern (::after). */
+.hero-bg-animated {
+  isolation: isolate;
+}
+.hero-bg-animated::before,
+.hero-bg-animated::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.hero-bg-animated::before {
+  background-image: linear-gradient(168deg, #fff 4%, #ece8ff 35%, #fcfcfd 81%);
+  background-size: 200% 200%;
+  animation: hero-gradient-drift 40s ease-in-out infinite;
+  z-index: -2;
+}
+.hero-bg-animated::after {
+  background-image: url('/images/hero-grid.svg');
+  background-repeat: repeat;
+  background-size: 36px 36px;
+  z-index: -1;
+}
+@keyframes hero-gradient-drift {
+  0%, 100% { background-position: 0% 0%; }
+  50% { background-position: 100% 100%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-bg-animated::before {
+    animation: none;
+  }
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;

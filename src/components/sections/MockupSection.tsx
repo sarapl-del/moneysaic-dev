@@ -1,4 +1,26 @@
+import { useState } from "react";
+
+const STAGES = [
+  {
+    src: "/images/Mockup Green.png",
+    dot: { left: "5.7%", top: "38%" } as const,
+  },
+  {
+    src: "/images/Branded Mockup2.png",
+    dot: { left: "30%", top: "36%" } as const,
+  },
+  {
+    src: "/images/Branded Mockup3.png",
+    dot: { left: "14%", top: "19%" } as const,
+  },
+] as const;
+
 export default function MockupSection() {
+  const [stage, setStage] = useState(0);
+  const current = STAGES[stage];
+  const nextLabel =
+    stage === STAGES.length - 1 ? "Restart mockup tour" : "Show next view";
+
   return (
     <section className="border-t border-muted-border bg-white py-16 md:py-24">
       <div className="mx-auto max-w-[1440px] px-9">
@@ -22,11 +44,26 @@ export default function MockupSection() {
           }}
         >
           <div className="flex items-center justify-center p-8 md:p-16">
-            <img
-              src="/images/Mockup Green.png"
-              alt="Desktop application dashboard"
-              className="w-full max-w-5xl"
-            />
+            <button
+              type="button"
+              onClick={() => setStage((s) => (s + 1) % STAGES.length)}
+              aria-label={nextLabel}
+              className="group relative block w-full max-w-5xl cursor-pointer appearance-none border-0 bg-transparent p-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/60 focus-visible:ring-offset-2"
+              style={{ aspectRatio: "3957 / 2495" }}
+            >
+              <img
+                src={current.src}
+                alt="Desktop application dashboard"
+                className="block h-full w-full object-contain"
+              />
+              {current.dot && (
+                <span
+                  aria-hidden
+                  className="mockup-pulse-dot pointer-events-none absolute"
+                  style={current.dot}
+                />
+              )}
+            </button>
           </div>
         </div>
       </div>

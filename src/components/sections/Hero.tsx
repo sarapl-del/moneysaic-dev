@@ -16,13 +16,7 @@ const LOGOS_DELAY_MS = 550;
 
 export default function Hero() {
   return (
-    <section
-      className="relative flex flex-col items-center"
-      style={{
-        background:
-          "linear-gradient(168deg, #fff 4%, #ece8ff 35%, #fcfcfd 81%)",
-      }}
-    >
+    <section className="hero-bg-animated relative flex flex-col items-center">
       {/* Content */}
       <div className="mx-auto flex max-w-[1440px] flex-col items-center gap-10 px-9 pt-24 pb-16 text-center md:pt-32 md:pb-20">
         <h1 className="max-w-[580px] text-4xl font-bold leading-[1.1] tracking-tight text-dark md:text-5xl">
@@ -47,7 +41,7 @@ export default function Hero() {
           className="hero-fade-up"
           style={{ animationDelay: `${CTA_DELAY_MS}ms` }}
         >
-          <Button className="h-12 rounded-[7px] bg-brand px-8 py-5 text-base font-normal text-white hover:bg-brand/90">
+          <Button className="h-12 rounded-[7px] bg-brand px-8 text-base font-normal text-white hover:bg-brand/90">
             Book a meeting with our team →
           </Button>
         </a>
@@ -55,8 +49,8 @@ export default function Hero() {
 
       {/* Logo bar */}
       <div
-        className="hero-fade-up w-full border-t border-muted-border"
-        style={{ animationDelay: `${LOGOS_DELAY_MS}ms` }}
+        className="hero-fade-up w-full border-y border-muted-border"
+        style={{ animationDelay: `${LOGOS_DELAY_MS}ms`, backgroundColor: "#FBFBFC" }}
       >
         <div className="mx-auto flex max-w-[1440px] flex-col items-center gap-6 px-9 py-6 md:flex-row md:justify-center md:gap-20">
           <span className="whitespace-nowrap font-mono text-xs font-medium uppercase tracking-widest text-muted-foreground">

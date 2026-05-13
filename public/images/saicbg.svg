@@ -122,19 +122,19 @@
 <!-- New right outermost vertical line -->
 <line x1="1655.35" y1="-982.236" x2="1655.35" y2="2349" stroke="#DBDBDB" stroke-width="0.694444"/>
 <g filter="url(#filter0_f_124_1191)">
-<rect x="-55" y="98" width="1755" height="287" fill="white"/>
+<rect x="-55" y="78" width="1755" height="287" fill="white"/>
 </g>
 <g filter="url(#filter1_f_124_1191)">
 <rect x="-55" y="2122" width="1755" height="243" fill="white"/>
 </g>
 <g filter="url(#filter2_f_124_1191)">
-<rect x="-55" y="1191" width="1755" height="299" fill="white"/>
+<rect x="-55" y="1147" width="1755" height="299" fill="white"/>
 </g>
 <g filter="url(#filter3_f_124_1191)">
 <rect x="-55" y="-982.236" width="1755" height="216" fill="white"/>
 </g>
 <defs>
-<filter id="filter0_f_124_1191" x="-135" y="18" width="1915" height="447" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<filter id="filter0_f_124_1191" x="-135" y="-2" width="1915" height="447" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
 <feFlood flood-opacity="0" result="BackgroundImageFix"/>
 <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
 <feGaussianBlur stdDeviation="40" result="effect1_foregroundBlur_124_1191"/>
@@ -144,7 +144,7 @@
 <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
 <feGaussianBlur stdDeviation="40" result="effect1_foregroundBlur_124_1191"/>
 </filter>
-<filter id="filter2_f_124_1191" x="-135" y="1111" width="1915" height="459" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<filter id="filter2_f_124_1191" x="-135" y="1067" width="1915" height="459" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
 <feFlood flood-opacity="0" result="BackgroundImageFix"/>
 <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
 <feGaussianBlur stdDeviation="40" result="effect1_foregroundBlur_124_1191"/>
