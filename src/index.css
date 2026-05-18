@@ -266,6 +266,15 @@ main > section:not(:first-of-type).in-view {
   }
 }
 
+/* Cross-browser scrollbar hider for the mobile mockup carousel. */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
 /* MockupSection: pulsing dot indicator over the Home tab.
    The dot itself is solid; a ::before pseudo expands+fades to create the pulse halo. */
 .mockup-pulse-dot {

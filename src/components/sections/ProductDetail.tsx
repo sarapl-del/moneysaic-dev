@@ -1,34 +1,117 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Monitor, Smartphone } from "lucide-react";
+
+// Mobile-only: horizontal scroll-snap carousel. Each image takes 80% width; the
+// 10% inline padding lets the first/last image snap-center cleanly, and adjacent
+// images peek behind a -10% margin so it reads as a stack rather than a strip.
+function KycMockupCarousel({ images, title }: { images: string[]; title: string }) {
+  const [activeIdx, setActiveIdx] = useState(0);
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    let raf = 0;
+    const onScroll = () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        const center = el.scrollLeft + el.clientWidth / 2;
+        let best = 0;
+        let bestDist = Infinity;
+        Array.from(el.children).forEach((child, i) => {
+          const c = child as HTMLElement;
+          const cCenter = c.offsetLeft + c.clientWidth / 2;
+          const d = Math.abs(center - cCenter);
+          if (d < bestDist) {
+            bestDist = d;
+            best = i;
+          }
+        });
+        setActiveIdx(best);
+      });
+    };
+    el.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      el.removeEventListener("scroll", onScroll);
+      cancelAnimationFrame(raf);
+    };
+  }, []);
+
+  return (
+    <div className="w-full">
+      <div
+        ref={scrollRef}
+        className="scrollbar-hide flex snap-x snap-mandatory overflow-x-auto px-[10%]"
+      >
+        {images.map((img, idx) => (
+          <div
+            key={idx}
+            className={`flex-none w-[80%] snap-center ${idx > 0 ? "-ml-[10%]" : ""}`}
+            style={{ zIndex: images.length - idx }}
+          >
+            <img
+              src={img}
+              alt={`${title} step ${idx + 1}`}
+              className="block w-full"
+              draggable={false}
+            />
+          </div>
+        ))}
+      </div>
+      <div className="mt-6 flex items-center justify-center gap-2">
+        {images.map((_, idx) => (
+          <span
+            key={idx}
+            aria-hidden
+            className={`block h-2 rounded-full transition-all duration-300 ${
+              idx === activeIdx ? "w-6 bg-dark" : "w-2 bg-dark/30"
+            }`}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
 
 function KycMockupStack({ images, title, maxWidth = "78rem" }: { images: string[]; title: string; maxWidth?: string }) {
   const [activeIdx, setActiveIdx] = useState<number | null>(null);
 
   return (
-    <div className="flex w-full items-center justify-center px-[4%] py-[7%]" style={{ maxWidth }}>
-      {images.map((img, idx) => {
-        const isActive = activeIdx === idx;
-        return (
-          <button
-            key={idx}
-            type="button"
-            onClick={() => setActiveIdx(isActive ? null : idx)}
-            aria-pressed={isActive}
-            aria-label={`${title} step ${idx + 1}`}
-            className={`relative min-w-0 flex-1 cursor-pointer appearance-none border-0 bg-transparent p-0 transition-transform duration-[400ms] [transition-timing-function:cubic-bezier(0.25,1,0.5,1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/60 focus-visible:ring-offset-2 motion-reduce:transition-none ${
-              idx > 0 ? "-ml-8" : ""
-            } ${isActive ? "scale-[1.35]" : ""}`}
-            style={{
-              zIndex: isActive ? 60 : images.length - idx,
-              transformOrigin: "center center",
-            }}
-          >
-            <img src={img} alt="" className="block w-full" />
-          </button>
-        );
-      })}
-    </div>
+    <>
+      {/* Mobile viewport: scrollable carousel with dots */}
+      <div className="w-full md:hidden">
+        <KycMockupCarousel images={images} title={title} />
+      </div>
+
+      {/* Tablet/Desktop: existing tap-to-scale stack — unchanged */}
+      <div
+        className="hidden w-full items-center justify-center px-[4%] py-[7%] md:flex"
+        style={{ maxWidth }}
+      >
+        {images.map((img, idx) => {
+          const isActive = activeIdx === idx;
+          return (
+            <button
+              key={idx}
+              type="button"
+              onClick={() => setActiveIdx(isActive ? null : idx)}
+              aria-pressed={isActive}
+              aria-label={`${title} step ${idx + 1}`}
+              className={`relative min-w-0 flex-1 cursor-pointer appearance-none border-0 bg-transparent p-0 transition-transform duration-[400ms] [transition-timing-function:cubic-bezier(0.25,1,0.5,1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/60 focus-visible:ring-offset-2 motion-reduce:transition-none ${
+                idx > 0 ? "-ml-8" : ""
+              } ${isActive ? "scale-[1.35]" : ""}`}
+              style={{
+                zIndex: isActive ? 60 : images.length - idx,
+                transformOrigin: "center center",
+              }}
+            >
+              <img src={img} alt="" className="block w-full" />
+            </button>
+          );
+        })}
+      </div>
+    </>
   );
 }
 

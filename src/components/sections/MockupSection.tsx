@@ -11,7 +11,7 @@ const STAGES = [
   },
   {
     src: "/images/Branded Mockup3.png",
-    dot: { left: "14%", top: "19%" } as const,
+    dot: { left: "17%", top: "21%" } as const,
   },
 ] as const;
 
@@ -49,7 +49,7 @@ export default function MockupSection() {
               onClick={() => setStage((s) => (s + 1) % STAGES.length)}
               aria-label={nextLabel}
               className="group relative block w-full max-w-5xl cursor-pointer appearance-none border-0 bg-transparent p-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/60 focus-visible:ring-offset-2"
-              style={{ aspectRatio: "3957 / 2495" }}
+              style={{ aspectRatio: "2968 / 1871" }}
             >
               <img
                 src={current.src}
