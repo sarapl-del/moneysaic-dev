@@ -64,10 +64,20 @@ export default function Footer() {
         {/* Bottom row */}
         <div className="mt-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <nav className="flex gap-8">
-            <a href="#" className="text-sm text-dark hover:text-brand transition-colors">
+            <a
+              href="https://www.iubenda.com/privacy-policy/68152943"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm text-dark hover:text-brand transition-colors"
+            >
               Privacy Policy
             </a>
-            <a href="#" className="text-sm text-dark hover:text-brand transition-colors">
+            <a
+              href="https://www.iubenda.com/privacy-policy/68152943"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm text-dark hover:text-brand transition-colors"
+            >
               Cookie Policy
             </a>
           </nav>
