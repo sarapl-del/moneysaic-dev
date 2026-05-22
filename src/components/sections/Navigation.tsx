@@ -23,7 +23,7 @@ export default function Navigation() {
             Features
           </a>
           <a href="https://calendly.com/doug-barr-dlabs/30min" target="_blank" rel="noopener noreferrer">
-            <Button className="h-12 rounded-[7px] bg-brand px-8 text-base font-normal text-white hover:bg-brand/90">
+            <Button className="h-9 rounded-[7px] border border-dark bg-white px-4 py-1.5 text-base font-medium text-dark hover:bg-white/80">
               Book a meeting with our team →
             </Button>
           </a>
@@ -45,7 +45,7 @@ export default function Navigation() {
                 Features
               </a>
               <a href="https://calendly.com/doug-barr-dlabs/30min" target="_blank" rel="noopener noreferrer">
-                <Button className="w-full rounded-[7px] bg-brand px-6 py-3 text-base font-medium text-white hover:bg-brand/90">
+                <Button className="w-full rounded-[7px] border border-dark bg-white px-6 py-3 text-base font-medium text-dark hover:bg-white/80">
                   Book a meeting with our team →
                 </Button>
               </a>
