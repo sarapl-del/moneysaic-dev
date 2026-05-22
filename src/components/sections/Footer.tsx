@@ -18,6 +18,7 @@ export default function Footer() {
 
           {/* Spacer */}
           <div className="hidden md:block" />
+          <div className="hidden md:block" />
 
           {/* Column 2 */}
           <div className="flex flex-col gap-3">
@@ -42,6 +43,14 @@ export default function Footer() {
               About d.labs
             </a>
             <a
+              href="https://www.dlabs.io/contact"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-base leading-6 font-normal text-dark hover:text-brand transition-colors"
+            >
+              Contact
+            </a>
+            <a
               href="https://www.linkedin.com/company/d.labs/"
               target="_blank"
               rel="noopener noreferrer"
@@ -49,11 +58,6 @@ export default function Footer() {
             >
               LinkedIn
             </a>
-          </div>
-
-          {/* Column 4 */}
-          <div className="flex flex-col gap-3">
-            <span className="text-base leading-6 font-semibold text-dark">Contact</span>
           </div>
 
         </div>
